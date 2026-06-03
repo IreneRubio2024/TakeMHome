@@ -27,7 +27,11 @@ export default function MyPresents() {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [isCreatingGift, setIsCreatingGift] = useState(false);
-  const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
+  const [toast, setToast] = useState({
+    visible: false,
+    message: "",
+    type: "success",
+  });
 
   const showToast = (message, type = "success") => {
     setToast({ visible: true, message, type });
@@ -221,7 +225,9 @@ export default function MyPresents() {
                 {isCreatingGift ? (
                   <View className="flex-row items-center gap-2">
                     <ActivityIndicator size="small" color="#FFFFFF" />
-                    <Text className="text-white font-KronaOne text-xs">Adding...</Text>
+                    <Text className="text-white font-KronaOne text-xs">
+                      Adding...
+                    </Text>
                   </View>
                 ) : (
                   <Text className="text-white font-KronaOne text-xs">Add</Text>
@@ -285,7 +291,11 @@ export default function MyPresents() {
         </View>
       </Modal>
 
-      <AppToast visible={toast.visible} message={toast.message} type={toast.type} />
+      <AppToast
+        visible={toast.visible}
+        message={toast.message}
+        type={toast.type}
+      />
     </View>
   );
 }

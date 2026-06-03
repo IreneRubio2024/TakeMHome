@@ -22,7 +22,11 @@ export default function MyWhishes() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
-  const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
+  const [toast, setToast] = useState({
+    visible: false,
+    message: "",
+    type: "success",
+  });
 
   const showToast = (messageText, type = "success") => {
     setToast({ visible: true, message: messageText, type });
@@ -181,7 +185,10 @@ export default function MyWhishes() {
               <TouchableOpacity
                 onPress={async () => {
                   if (!message.trim()) {
-                    showToast("Please write a message before sending.", "error");
+                    showToast(
+                      "Please write a message before sending.",
+                      "error",
+                    );
                     return;
                   }
 
@@ -212,7 +219,9 @@ export default function MyWhishes() {
                 {isSending ? (
                   <View className="flex-row items-center gap-2">
                     <ActivityIndicator size="small" color="#FFFFFF" />
-                    <Text className="text-white font-KronaOne text-center text-xs">Sending...</Text>
+                    <Text className="text-white font-KronaOne text-center text-xs">
+                      Sending...
+                    </Text>
                   </View>
                 ) : (
                   <Text className="text-white font-KronaOne text-center text-xs">
@@ -225,7 +234,11 @@ export default function MyWhishes() {
         </View>
       </Modal>
 
-      <AppToast visible={toast.visible} message={toast.message} type={toast.type} />
+      <AppToast
+        visible={toast.visible}
+        message={toast.message}
+        type={toast.type}
+      />
     </View>
   );
 }

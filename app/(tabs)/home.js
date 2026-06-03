@@ -56,7 +56,11 @@ export default function Home() {
   const [location, setLocation] = useState("");
   const [isCreatingGift, setIsCreatingGift] = useState(false);
   const [isReserving, setIsReserving] = useState(false);
-  const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
+  const [toast, setToast] = useState({
+    visible: false,
+    message: "",
+    type: "success",
+  });
   const [items, setItems] = useState([
     {
       id: 1,
@@ -327,7 +331,9 @@ export default function Home() {
                 {isCreatingGift ? (
                   <View className="flex-row items-center gap-2">
                     <ActivityIndicator size="small" color="#FFFFFF" />
-                    <Text className="text-white font-KronaOne text-xs">Adding...</Text>
+                    <Text className="text-white font-KronaOne text-xs">
+                      Adding...
+                    </Text>
                   </View>
                 ) : (
                   <Text className="text-white font-KronaOne text-xs">Add</Text>
@@ -381,15 +387,18 @@ export default function Home() {
                     accessibilityLabel="Reserve gift"
                     className="px-5 py-3 rounded-full"
                     style={{
-                      backgroundColor: selectedWhish?.reserved || isReserving
-                        ? "#94A3B8"
-                        : "#B85C38",
+                      backgroundColor:
+                        selectedWhish?.reserved || isReserving
+                          ? "#94A3B8"
+                          : "#B85C38",
                     }}
                   >
                     {isReserving ? (
                       <View className="flex-row items-center gap-2">
                         <ActivityIndicator size="small" color="#FFFFFF" />
-                        <Text className="text-white font-KronaOne text-xs">Saving...</Text>
+                        <Text className="text-white font-KronaOne text-xs">
+                          Saving...
+                        </Text>
                       </View>
                     ) : (
                       <Text className="text-white font-KronaOne text-xs">
@@ -404,7 +413,11 @@ export default function Home() {
         </View>
       </Modal>
 
-      <AppToast visible={toast.visible} message={toast.message} type={toast.type} />
+      <AppToast
+        visible={toast.visible}
+        message={toast.message}
+        type={toast.type}
+      />
     </View>
   );
 }
