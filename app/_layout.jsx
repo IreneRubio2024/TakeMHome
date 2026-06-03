@@ -12,6 +12,7 @@ import { Slot } from "expo-router";
 import { GiftProvider } from "../context/GiftContext";
 import "../global.css";
 import { WhishesProvider } from "../context/WhishesContext";
+import { MessagesProvider } from "../context/MessagesContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -58,16 +59,18 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <WhishesProvider>
-      <GiftProvider>
-        <GluestackUIProvider mode={colorScheme === "dark" ? "dark" : "light"}>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <Slot />
-          </ThemeProvider>
-        </GluestackUIProvider>
-      </GiftProvider>
-    </WhishesProvider>
+    <MessagesProvider>
+      <WhishesProvider>
+        <GiftProvider>
+          <GluestackUIProvider mode={colorScheme === "dark" ? "dark" : "light"}>
+            <ThemeProvider
+              value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            >
+              <Slot />
+            </ThemeProvider>
+          </GluestackUIProvider>
+        </GiftProvider>
+      </WhishesProvider>
+    </MessagesProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,45 @@ import { useRouter } from "expo-router";
 
 export default function Home() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ email: "", password: "", form: "" });
+
+  const validate = () => {
+    const nextErrors = { email: "", password: "", form: "" };
+    const emailValue = email.trim();
+
+    if (!emailValue) {
+      nextErrors.email = "Email is required.";
+    } else if (!/^\S+@\S+\.\S+$/.test(emailValue)) {
+      nextErrors.email = "Use a valid email format.";
+    }
+
+    if (!password) {
+      nextErrors.password = "Password is required.";
+    } else if (password.length < 6) {
+      nextErrors.password = "Password must be at least 6 characters.";
+    }
+
+    if (nextErrors.email || nextErrors.password) {
+      nextErrors.form = "Please review the fields above.";
+      setErrors(nextErrors);
+      return false;
+    }
+
+    setErrors(nextErrors);
+    return true;
+  };
+
+  const handleLogin = () => {
+    const isValid = validate();
+    if (!isValid) {
+      return;
+    }
+
+    router.replace("/(tabs)/home");
+  };
+
   return (
     <ImageBackground
       source={require("../assets/images/fondoindex.png")}
@@ -21,53 +60,70 @@ export default function Home() {
     >
       <View style={styles.overlay} />
 
-      <View style={styles.content}>
-        <View className="bg-white/30 p-10">
-          <Text className="font-KronaOne" style={styles.textLine1}>
-            Welcome to
-          </Text>
-          <Text className="font-KronaOne" style={styles.textLine}>
-            TAKE
-          </Text>
-          <Text className="font-KronaOne" style={styles.textLine2}>
-            me
-          </Text>
-          <Text className="font-KronaOne" style={styles.textLine}>
-            HOME
+      <View style={styles.wrapper}>
+        <View style={styles.brandBlock}>
+          <Text style={styles.brandTop}>COMMUNITY MARKET</Text>
+          <Text style={styles.brandTitle}>TAKE ME HOME</Text>
+          <Text style={styles.brandSub}>
+            Find local gifts and give things a second life.
           </Text>
         </View>
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
-          placeholderTextColor="#888"
-        />
 
-        <TextInput
-          placeholder="Password"
-          style={styles.input}
-          placeholderTextColor="#888"
-        />
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            router.replace("/(tabs)/home");
-          }}
-        >
-          <Text className="font-KronaOne text-white p-1">Login</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text className="text-white" style={styles.linkText}>
-            Don't have an account? Sign up
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Welcome back</Text>
+          <Text style={styles.cardSubtitle}>
+            This login is demo-only for now.
           </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={styles.googleButton}>
-          <Text className="text-white" style={styles.googleText}>
-            Sign in with Google
-          </Text>
-        </TouchableOpacity>
+          <TextInput
+            placeholder="Email"
+            style={[styles.input, errors.email ? styles.inputError : null]}
+            placeholderTextColor="#94A3B8"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={(value) => {
+              setEmail(value);
+              if (errors.email || errors.form) {
+                setErrors((prev) => ({ ...prev, email: "", form: "" }));
+              }
+            }}
+          />
+          {!!errors.email && (
+            <Text style={styles.errorText}>{errors.email}</Text>
+          )}
+
+          <TextInput
+            placeholder="Password"
+            style={[styles.input, errors.password ? styles.inputError : null]}
+            placeholderTextColor="#94A3B8"
+            secureTextEntry
+            value={password}
+            onChangeText={(value) => {
+              setPassword(value);
+              if (errors.password || errors.form) {
+                setErrors((prev) => ({ ...prev, password: "", form: "" }));
+              }
+            }}
+          />
+          {!!errors.password && (
+            <Text style={styles.errorText}>{errors.password}</Text>
+          )}
+
+          {!!errors.form && <Text style={styles.formError}>{errors.form}</Text>}
+
+          <TouchableOpacity style={styles.primaryButton} onPress={handleLogin}>
+            <Text style={styles.primaryButtonText}>Enter app</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.secondaryButton}>
+            <Text style={styles.secondaryButtonText}>Continue with Google</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Text style={styles.linkText}>No account yet? Create one</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -80,62 +136,120 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(30, 30, 30, 0.8)",
+    backgroundColor: "rgba(2, 6, 23, 0.62)",
   },
-  content: {
+  wrapper: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 28,
+  },
+  brandBlock: {
+    marginBottom: 20,
+    alignItems: "center",
+    maxWidth: 420,
+    width: "100%",
+  },
+  brandTop: {
+    color: "#E2E8F0",
+    fontSize: 12,
+    letterSpacing: 2,
+    marginBottom: 8,
+  },
+  brandTitle: {
+    color: "#F8FAFC",
+    fontSize: 34,
+    textAlign: "center",
+    letterSpacing: 1,
+    fontFamily: "KronaOneRegular",
+  },
+  brandSub: {
+    color: "#E2E8F0",
+    marginTop: 10,
+    textAlign: "center",
+    fontSize: 14,
+    maxWidth: 320,
+    lineHeight: 20,
+  },
+  card: {
+    backgroundColor: "rgba(255, 248, 244, 0.95)",
+    borderRadius: 24,
     padding: 20,
+    borderWidth: 1,
+    borderColor: "#E7D7CF",
+    maxWidth: 420,
+    width: "100%",
   },
-  textContainer: {
-    backgroundColor: "rgba (255, 99, 27, 0.8)",
-    paddingHorizontal: 15,
-
-    marginBottom: 30,
-    alignItems: "center",
-  },
-  textLine: {
-    fontSize: 38,
-
-    color: "#1EFF00",
-
-    paddingStart: 10,
-  },
-  textLine1: {
+  cardTitle: {
+    color: "#0F172A",
     fontSize: 20,
-   
-    color: "white",
+    fontFamily: "KronaOneRegular",
   },
-  textLine2: {
-    fontSize: 20,
- 
-    color: "#1EFF00",
-
-    paddingStart: 62,
+  cardSubtitle: {
+    color: "#64748B",
+    marginTop: 6,
+    marginBottom: 14,
+    fontSize: 13,
   },
   input: {
-    width: "60%",
-    height: 40,
-    backgroundColor: "#fff",
-    marginVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    fontFamily: "MontserratVariable",
+    backgroundColor: "#FFF8F4",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "#E7D7CF",
+    height: 46,
+    paddingHorizontal: 14,
+    marginBottom: 10,
+    color: "#0F172A",
   },
-  button: {
-    backgroundColor: "#005DFF",
-    padding: 7,
-    borderRadius: 20,
-    marginTop: 10,
-    width: "60%",
+  inputError: {
+    borderColor: "#DC2626",
+  },
+  errorText: {
+    color: "#DC2626",
+    fontSize: 12,
+    marginBottom: 8,
+    marginTop: -2,
+  },
+  formError: {
+    color: "#991B1B",
+    fontSize: 12,
+    marginTop: -2,
+    marginBottom: 6,
+  },
+  primaryButton: {
+    backgroundColor: "#B85C38",
+    borderRadius: 14,
+    height: 46,
     alignItems: "center",
-    height: 40,
+    justifyContent: "center",
+    marginTop: 6,
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "40",
+  primaryButtonText: {
+    color: "#FFFFFF",
+    fontFamily: "KronaOneRegular",
+    fontSize: 12,
+    letterSpacing: 0.5,
   },
-  link: {
-    marginTop: 12,
-    textDecorationLine: "underline",
+  secondaryButton: {
+    marginTop: 10,
+    borderRadius: 14,
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#DCC7BC",
+    backgroundColor: "#FFF8F4",
+  },
+  secondaryButtonText: {
+    color: "#334155",
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  linkText: {
+    marginTop: 14,
+    color: "#475569",
+    textAlign: "center",
+    fontSize: 13,
   },
 });

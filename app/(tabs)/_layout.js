@@ -1,42 +1,74 @@
 import { Tabs } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomTitle from "../../components/CustomTitle";
+import { TouchableOpacity, Text, View } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function TabLayout() {
+  const router = useRouter();
+
   return (
     <Tabs
       screenOptions={{
         headerStyle: {
-          backgroundColor: "rgba(30, 30, 30, 1)",
-          height: 180,
+          backgroundColor: "#7A3A23",
+          height: 128,
         },
         headerTitle: () => <CustomTitle />,
 
         headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontFamily: "KronaOne-Regular",
-          color: "#1EFF00",
-        },
+        headerTitleStyle: { fontFamily: "KronaOneRegular" },
 
         headerRight: () => (
-          <>
-            <MaterialIcons
-              name="menu"
-              size={24}
-              color="white"
-              style={{ marginRight: 10, marginTop: 0 }}
-            />
-          </>
+          <TouchableOpacity
+            onPress={() => router.replace("/")}
+            accessibilityRole="button"
+            accessibilityLabel="Logout"
+            accessibilityHint="Returns to the login screen"
+            accessibilityState={{ disabled: false }}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            style={{
+              marginRight: 14,
+              minWidth: 44,
+              minHeight: 44,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+            >
+              <MaterialIcons name="logout" size={20} color="#FDE7DF" />
+              <Text
+                style={{
+                  color: "#FDE7DF",
+                  fontSize: 11,
+                  fontFamily: "KronaOneRegular",
+                }}
+              >
+                Logout
+              </Text>
+            </View>
+          </TouchableOpacity>
         ),
 
         sceneContainerStyle: {
-          backgroundColor: "rgba(242, 242, 242)",
+          backgroundColor: "#FCF6F2",
         },
 
         tabBarStyle: {
-          backgroundColor: "rgba(242, 242, 242)",
-          height: 70,
+          backgroundColor: "#FFF8F4",
+          borderTopColor: "#EADFD8",
+          borderTopWidth: 1,
+          height: 74,
           paddingBottom: 10,
+          paddingTop: 8,
+        },
+        tabBarActiveTintColor: "#B85C38",
+        tabBarInactiveTintColor: "#64748B",
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontFamily: "KronaOneRegular",
         },
       }}
     >
@@ -45,7 +77,7 @@ export default function TabLayout() {
         options={{
           title: "My Gifts",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons size={28} name="star" color="#FF631B" />
+            <MaterialIcons size={24} name="redeem" color={color} />
           ),
         }}
       />
@@ -55,7 +87,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" size={24} color="#FF631B" />
+            <MaterialIcons name="home-filled" size={24} color={color} />
           ),
         }}
       />
@@ -64,7 +96,16 @@ export default function TabLayout() {
         options={{
           title: "My Whishes",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="auto-awesome" size={24} color="#FF631B" />
+            <MaterialIcons name="favorite" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="mailbox"
+        options={{
+          title: "Mailbox",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="mail" size={24} color={color} />
           ),
         }}
       />

@@ -5,22 +5,23 @@ export default function CustomTitle() {
     <View style={{ alignItems: "center" }}>
       <Text
         style={{
-          fontSize: 32,
-          fontWeight: "bold",
-          color: "#1EFF00",
-          fontFamily: "KronaOne",
+          fontSize: 24,
+          letterSpacing: 1,
+          color: "#FFF7F3",
+          fontFamily: "KronaOneRegular",
         }}
       >
-        TmH
+        TAKE ME HOME
       </Text>
       <Text
         style={{
-          fontSize: 16,
-          color: "#D9D9D9",
-          fontStyle: "italic",
+          marginTop: 2,
+          fontSize: 11,
+          color: "#FDD9CC",
+          letterSpacing: 0.5,
         }}
       >
-        "grab it tightly release it lightly"
+        GIVE MORE. WASTE LESS.
       </Text>
     </View>
   );
