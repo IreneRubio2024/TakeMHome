@@ -9,7 +9,6 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import { Link } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
@@ -42,7 +41,7 @@ export default function MyPresents() {
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ["images"],
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -141,14 +140,12 @@ export default function MyPresents() {
       />
 
       <View className="absolute bottom-6 self-center items-center">
-        <Link href="/myPresents" asChild>
-          <TouchableOpacity
-            onPress={() => setShowModal(true)}
-            className="bg-[#B85C38] w-16 h-16 rounded-full items-center justify-center"
-          >
-            <MaterialIcons name="add" size={34} color="white" />
-          </TouchableOpacity>
-        </Link>
+        <TouchableOpacity
+          onPress={() => setShowModal(true)}
+          className="bg-[#B85C38] w-16 h-16 rounded-full items-center justify-center"
+        >
+          <MaterialIcons name="add" size={34} color="white" />
+        </TouchableOpacity>
         <Text className="text-slate-700 font-KronaOne mt-2 text-xs">
           Add Gift
         </Text>
