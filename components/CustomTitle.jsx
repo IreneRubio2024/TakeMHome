@@ -2,11 +2,11 @@ import { View, Text } from "react-native";
 
 export default function CustomTitle() {
   return (
-    <View style={{ alignItems: "center" }}>
+    <View style={{ alignItems: "flex-start" }}>
       <Text
         style={{
-          fontSize: 24,
-          letterSpacing: 1,
+          fontSize: 18,
+          letterSpacing: 0.5,
           color: "#FFF7F3",
           fontFamily: "KronaOneRegular",
         }}
@@ -16,7 +16,7 @@ export default function CustomTitle() {
       <Text
         style={{
           marginTop: 2,
-          fontSize: 11,
+          fontSize: 10,
           color: "#FDD9CC",
           letterSpacing: 0.5,
         }}

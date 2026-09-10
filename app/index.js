@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   brandTitle: {
     color: "#F8FAFC",
-    fontSize: 34,
+    fontSize: 26,
     textAlign: "center",
     letterSpacing: 1,
     fontFamily: "KronaOneRegular",

@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomTitle from "../../components/CustomTitle";
-import { TouchableOpacity, Text, View } from "react-native";
+import { TouchableOpacity, Text, View, Linking } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function TabLayout() {
@@ -15,41 +15,57 @@ export default function TabLayout() {
           height: 128,
         },
         headerTitle: () => <CustomTitle />,
+        headerTitleAlign: "left",
+        headerTitleContainerStyle: { marginLeft: 4 },
+        headerRightContainerStyle: { paddingRight: 12 },
 
         headerTintColor: "#fff",
         headerTitleStyle: { fontFamily: "KronaOneRegular" },
 
         headerRight: () => (
-          <TouchableOpacity
-            onPress={() => router.replace("/")}
-            accessibilityRole="button"
-            accessibilityLabel="Logout"
-            accessibilityHint="Returns to the login screen"
-            accessibilityState={{ disabled: false }}
-            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-            style={{
-              marginRight: 14,
-              minWidth: 44,
-              minHeight: 44,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+          <View style={{ alignItems: "flex-end", gap: 8 }}>
+            <TouchableOpacity
+              onPress={() => Linking.openURL("https://www.irene-rubio.com")}
+              accessibilityRole="link"
+              accessibilityLabel="Back to portfolio"
+              hitSlop={{ top: 8, bottom: 4, left: 16, right: 4 }}
             >
-              <MaterialIcons name="logout" size={20} color="#FDE7DF" />
-              <Text
-                style={{
-                  color: "#FDE7DF",
-                  fontSize: 11,
-                  fontFamily: "KronaOneRegular",
-                }}
-              >
-                Logout
-              </Text>
-            </View>
-          </TouchableOpacity>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 3 }}>
+                <MaterialIcons name="arrow-back" size={14} color="#FDE7DF" />
+                <Text
+                  style={{
+                    color: "#FDE7DF",
+                    fontSize: 10,
+                    fontFamily: "KronaOneRegular",
+                    opacity: 0.8,
+                  }}
+                >
+                  portfolio
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => router.replace("/")}
+              accessibilityRole="button"
+              accessibilityLabel="Logout"
+              accessibilityHint="Returns to the login screen"
+              hitSlop={{ top: 4, bottom: 8, left: 16, right: 4 }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                <MaterialIcons name="logout" size={18} color="#FDE7DF" />
+                <Text
+                  style={{
+                    color: "#FDE7DF",
+                    fontSize: 10,
+                    fontFamily: "KronaOneRegular",
+                  }}
+                >
+                  Logout
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         ),
 
         sceneContainerStyle: {
