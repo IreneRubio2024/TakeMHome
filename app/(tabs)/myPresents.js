@@ -6,12 +6,9 @@ import {
   Image,
   Modal,
   TouchableOpacity,
-  TextInput,
-  ActivityIndicator,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-
+import CreateGiftModal from "../../components/CreateGiftModal";
 import { useGiftContext } from "../../context/GiftContext";
 import { normalizeImageSource } from "../../utils/imageSource";
 import AppToast from "../../components/AppToast";
@@ -21,11 +18,6 @@ export default function MyPresents() {
   const [selectedGift, setSelectedGift] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [isCreatingGift, setIsCreatingGift] = useState(false);
   const [toast, setToast] = useState({
     visible: false,
     message: "",
@@ -37,45 +29,6 @@ export default function MyPresents() {
     setTimeout(() => {
       setToast({ visible: false, message: "", type: "success" });
     }, 2200);
-  };
-
-  const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
-
-  const createGift = async () => {
-    if (!name.trim() || !description.trim() || !location.trim()) {
-      showToast("Name, description and location are required.", "error");
-      return;
-    }
-
-    setIsCreatingGift(true);
-
-    const newGift = {
-      id: Date.now(),
-      name,
-      image,
-      description,
-      location,
-    };
-
-    addGift(newGift);
-    setShowModal(false);
-    setImage(null);
-    setName("");
-    setDescription("");
-    setLocation("");
-    showToast("Gift created successfully.", "success");
-    setIsCreatingGift(false);
   };
 
   const handleDeleteGift = (giftId) => {
@@ -151,90 +104,19 @@ export default function MyPresents() {
           <Text className="text-white font-KronaOne text-xs">Add Gift</Text>
         </TouchableOpacity>
       </View>
-
-      <Modal
+      <CreateGiftModal
         visible={showModal}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setShowModal(false)}
-      >
-        <View className="flex-1 justify-center items-center bg-black/55 px-4">
-          <View className="bg-[#FFF8F4] w-full rounded-3xl p-5 border border-[#EADFD8]">
-            <Text className="text-lg font-KronaOne text-center text-slate-900 mb-4">
-              Create Gift
-            </Text>
-
-            <TouchableOpacity
-              onPress={pickImage}
-              className="bg-[#F6ECE6] h-40 rounded-2xl justify-center items-center mb-4 overflow-hidden"
-            >
-              {image ? (
-                <Image
-                  source={normalizeImageSource(image)}
-                  className="w-full h-full rounded-2xl"
-                  resizeMode="contain"
-                />
-              ) : (
-                <Text className="text-slate-500 font-KronaOne text-xs">
-                  Select image
-                </Text>
-              )}
-            </TouchableOpacity>
-
-            <TextInput
-              placeholder="Name"
-              value={name}
-              onChangeText={setName}
-              className="bg-[#F6ECE6] rounded-xl px-4 py-3 mb-2 text-slate-700"
-            />
-            <TextInput
-              placeholder="Description"
-              value={description}
-              onChangeText={setDescription}
-              className="bg-[#F6ECE6] rounded-xl px-4 py-3 mb-2 text-slate-700"
-            />
-            <TextInput
-              placeholder="Location"
-              value={location}
-              onChangeText={setLocation}
-              className="bg-[#F6ECE6] rounded-xl px-4 py-3 mb-4 text-slate-700"
-            />
-
-            <View className="flex-row justify-between">
-              <TouchableOpacity
-                onPress={() => setShowModal(false)}
-                accessibilityRole="button"
-                accessibilityLabel="Cancel creating gift"
-                className="bg-slate-200 px-5 py-3 rounded-full"
-              >
-                <Text className="font-KronaOne text-slate-600 text-xs">
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={createGift}
-                disabled={isCreatingGift}
-                accessibilityRole="button"
-                accessibilityLabel="Create gift"
-                className="bg-[#B85C38] px-5 py-3 rounded-full"
-                style={{ opacity: isCreatingGift ? 0.7 : 1 }}
-              >
-                {isCreatingGift ? (
-                  <View className="flex-row items-center gap-2">
-                    <ActivityIndicator size="small" color="#FFFFFF" />
-                    <Text className="text-white font-KronaOne text-xs">
-                      Adding...
-                    </Text>
-                  </View>
-                ) : (
-                  <Text className="text-white font-KronaOne text-xs">Add</Text>
-                )}
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setShowModal(false)}
+        onCreated={({ gift, error }) => {
+          if (error) {
+            showToast(error, "error");
+            return;
+          }
+          addGift(gift);
+          setShowModal(false);
+          showToast("Gift created successfully.", "success");
+        }}
+      />
 
       <Modal
         visible={modalVisible}
