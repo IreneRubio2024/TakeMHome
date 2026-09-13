@@ -1,10 +1,6 @@
 import React from "react";
 import { useToast, Toast, ToastTitle } from "../components/ui/toast";
 
-// Thin wrapper around Gluestack's toast so every screen keeps the same
-// simple call it already had with the old AppToast component:
-//   const showToast = useAppToast();
-//   showToast("Gift created successfully.", "success");
 export function useAppToast() {
   const toast = useToast();
 
