@@ -14,7 +14,7 @@ import { MaterialIcons, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { useGiftContext } from "../../context/GiftContext";
 import { useWhishesContext } from "../../context/WhishesContext";
 import { normalizeImageSource } from "../../utils/imageSource";
-import AppToast from "../../components/AppToast";
+import { useAppToast } from "../../hooks/useAppToast";
 import CreateGiftModal from "../../components/CreateGiftModal";
 import Image1 from "../../assets/images/Image1.jpg";
 import Image2 from "../../assets/images/Image2.jpg";
@@ -50,11 +50,7 @@ export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedWhish, setSelectedWhish] = useState(null);
   const [isReserving, setIsReserving] = useState(false);
-  const [toast, setToast] = useState({
-    visible: false,
-    message: "",
-    type: "success",
-  });
+  const showToast = useAppToast();
   const [items, setItems] = useState([
     {
       id: 1,
@@ -92,13 +88,6 @@ export default function Home() {
 
   const { addGift } = useGiftContext();
   const { reserveWhish } = useWhishesContext();
-
-  const showToast = (message, type = "success") => {
-    setToast({ visible: true, message, type });
-    setTimeout(() => {
-      setToast({ visible: false, message: "", type: "success" });
-    }, 2200);
-  };
 
   const handleReserve = async () => {
     if (!selectedWhish) {
@@ -301,12 +290,6 @@ export default function Home() {
           </View>
         </View>
       </Modal>
-
-      <AppToast
-        visible={toast.visible}
-        message={toast.message}
-        type={toast.type}
-      />
     </View>
   );
 }

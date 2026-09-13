@@ -11,25 +11,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CreateGiftModal from "../../components/CreateGiftModal";
 import { useGiftContext } from "../../context/GiftContext";
 import { normalizeImageSource } from "../../utils/imageSource";
-import AppToast from "../../components/AppToast";
+import { useAppToast } from "../../hooks/useAppToast";
 
 export default function MyPresents() {
   const { gifts, addGift, removeGift } = useGiftContext();
   const [selectedGift, setSelectedGift] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [toast, setToast] = useState({
-    visible: false,
-    message: "",
-    type: "success",
-  });
-
-  const showToast = (message, type = "success") => {
-    setToast({ visible: true, message, type });
-    setTimeout(() => {
-      setToast({ visible: false, message: "", type: "success" });
-    }, 2200);
-  };
+  const showToast = useAppToast();
 
   const handleDeleteGift = (giftId) => {
     const removed = removeGift(giftId);
@@ -170,12 +159,6 @@ export default function MyPresents() {
           </View>
         </View>
       </Modal>
-
-      <AppToast
-        visible={toast.visible}
-        message={toast.message}
-        type={toast.type}
-      />
     </View>
   );
 }

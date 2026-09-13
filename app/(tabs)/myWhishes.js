@@ -13,7 +13,7 @@ import {
 import { useWhishesContext } from "../../context/WhishesContext";
 import { useMessagesContext } from "../../context/MessagesContext";
 import { normalizeImageSource } from "../../utils/imageSource";
-import AppToast from "../../components/AppToast";
+import { useAppToast } from "../../hooks/useAppToast";
 
 export default function MyWhishes() {
   const { whishes, removeWhish } = useWhishesContext();
@@ -22,18 +22,7 @@ export default function MyWhishes() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
-  const [toast, setToast] = useState({
-    visible: false,
-    message: "",
-    type: "success",
-  });
-
-  const showToast = (messageText, type = "success") => {
-    setToast({ visible: true, message: messageText, type });
-    setTimeout(() => {
-      setToast({ visible: false, message: "", type: "success" });
-    }, 2200);
-  };
+  const showToast = useAppToast();
 
   const openContactModal = (item) => {
     setSelectedItem(item);
@@ -236,12 +225,6 @@ export default function MyWhishes() {
           </View>
         </View>
       </Modal>
-
-      <AppToast
-        visible={toast.visible}
-        message={toast.message}
-        type={toast.type}
-      />
     </View>
   );
 }
