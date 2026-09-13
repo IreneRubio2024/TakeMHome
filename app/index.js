@@ -54,7 +54,7 @@ export default function Home() {
 
   return (
     <ImageBackground
-      source={require("../assets/images/fondoindex.png")}
+      source={require("../assets/images/fondoindex.jpg")}
       style={styles.background}
       resizeMode="cover"
     >

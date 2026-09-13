@@ -18,8 +18,8 @@ import { useAppToast } from "../../hooks/useAppToast";
 import CreateGiftModal from "../../components/CreateGiftModal";
 import Image1 from "../../assets/images/Image1.jpg";
 import Image2 from "../../assets/images/Image2.jpg";
-import Image3 from "../../assets/images/Image3.png";
-import Image4 from "../../assets/images/Image4.png";
+import Image3 from "../../assets/images/Image3.jpg";
+import Image4 from "../../assets/images/Image4.jpg";
 
 const categories = [
   {
