@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import cykel from "../assets/images/cykel.png";
-import byro from "../assets/images/byro.png";
+import cykel from "../assets/images/cykel.jpg";
+import byro from "../assets/images/byro.jpg";
 import minions from "../assets/images/minions.jpg";
-import piano from "../assets/images/piano.png";
+import piano from "../assets/images/piano.jpg";
 
 const GiftContext = createContext();
 const GIFTS_STORAGE_KEY = "take-me-home:gifts";
