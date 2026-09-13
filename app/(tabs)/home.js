@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Modal,
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
@@ -16,6 +15,7 @@ import { useWhishesContext } from "../../context/WhishesContext";
 import { normalizeImageSource } from "../../utils/imageSource";
 import { useAppToast } from "../../hooks/useAppToast";
 import CreateGiftModal from "../../components/CreateGiftModal";
+import ItemDetailModal from "../../components/ItemDetailModal";
 import Image1 from "../../assets/images/Image1.jpg";
 import Image2 from "../../assets/images/Image2.jpg";
 import Image3 from "../../assets/images/Image3.jpg";
@@ -222,74 +222,47 @@ export default function Home() {
         }}
       />
 
-      <Modal
+      <ItemDetailModal
         visible={modalVisible}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setModalVisible(false)}
+        onClose={() => setModalVisible(false)}
+        item={selectedWhish}
+        overlayClassName="bg-black/60"
       >
-        <View className="flex-1 justify-center items-center bg-black/60 px-4">
-          <View className="bg-[#FFF8F4] w-full rounded-3xl p-5 border border-[#EADFD8]">
-            {selectedWhish && (
-              <>
-                <Text className="text-xl font-KronaOne mb-3 text-center text-slate-900">
-                  {selectedWhish.name}
+        <View className="flex-row justify-between mt-1">
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            className="bg-[#7A1E2C] px-5 py-3 rounded-full"
+          >
+            <Text className="text-white font-KronaOne text-xs">Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleReserve}
+            disabled={selectedWhish?.reserved || isReserving}
+            accessibilityRole="button"
+            accessibilityLabel="Reserve gift"
+            className="px-5 py-3 rounded-full"
+            style={{
+              backgroundColor:
+                selectedWhish?.reserved || isReserving
+                  ? "#94A3B8"
+                  : "#B85C38",
+            }}
+          >
+            {isReserving ? (
+              <View className="flex-row items-center gap-2">
+                <ActivityIndicator size="small" color="#FFFFFF" />
+                <Text className="text-white font-KronaOne text-xs">
+                  Saving...
                 </Text>
-
-                <Image
-                  source={normalizeImageSource(selectedWhish.image)}
-                  className="w-full h-52 rounded-2xl mb-4"
-                  resizeMode="cover"
-                />
-
-                <Text className="text-slate-700 mb-1">
-                  {selectedWhish.description}
-                </Text>
-                <Text className="text-slate-500 mb-4">
-                  Location: {selectedWhish.location}
-                </Text>
-
-                <View className="flex-row justify-between mt-1">
-                  <TouchableOpacity
-                    onPress={() => setModalVisible(false)}
-                    className="bg-[#7A1E2C] px-5 py-3 rounded-full"
-                  >
-                    <Text className="text-white font-KronaOne text-xs">
-                      Cancel
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={handleReserve}
-                    disabled={selectedWhish?.reserved || isReserving}
-                    accessibilityRole="button"
-                    accessibilityLabel="Reserve gift"
-                    className="px-5 py-3 rounded-full"
-                    style={{
-                      backgroundColor:
-                        selectedWhish?.reserved || isReserving
-                          ? "#94A3B8"
-                          : "#B85C38",
-                    }}
-                  >
-                    {isReserving ? (
-                      <View className="flex-row items-center gap-2">
-                        <ActivityIndicator size="small" color="#FFFFFF" />
-                        <Text className="text-white font-KronaOne text-xs">
-                          Saving...
-                        </Text>
-                      </View>
-                    ) : (
-                      <Text className="text-white font-KronaOne text-xs">
-                        {selectedWhish?.reserved ? "Reserved" : "Reserve"}
-                      </Text>
-                    )}
-                  </TouchableOpacity>
-                </View>
-              </>
+              </View>
+            ) : (
+              <Text className="text-white font-KronaOne text-xs">
+                {selectedWhish?.reserved ? "Reserved" : "Reserve"}
+              </Text>
             )}
-          </View>
+          </TouchableOpacity>
         </View>
-      </Modal>
+      </ItemDetailModal>
     </View>
   );
 }

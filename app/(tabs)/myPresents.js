@@ -4,11 +4,11 @@ import {
   Text,
   FlatList,
   Image,
-  Modal,
   TouchableOpacity,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import CreateGiftModal from "../../components/CreateGiftModal";
+import ItemDetailModal from "../../components/ItemDetailModal";
 import { useGiftContext } from "../../context/GiftContext";
 import { normalizeImageSource } from "../../utils/imageSource";
 import { useAppToast } from "../../hooks/useAppToast";
@@ -107,58 +107,31 @@ export default function MyPresents() {
         }}
       />
 
-      <Modal
+      <ItemDetailModal
         visible={modalVisible}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setModalVisible(false)}
+        onClose={() => setModalVisible(false)}
+        item={selectedGift}
+        descriptionFallback="No description"
       >
-        <View className="flex-1 justify-center items-center bg-black/55 px-4">
-          <View className="bg-[#FFF8F4] w-full rounded-3xl p-5 border border-[#EADFD8]">
-            {selectedGift && (
-              <>
-                <Text className="text-xl font-KronaOne mb-3 text-center text-slate-900">
-                  {selectedGift.name}
-                </Text>
-
-                <Image
-                  source={normalizeImageSource(selectedGift.image)}
-                  className="w-full h-52 rounded-2xl mb-4"
-                  resizeMode="cover"
-                />
-
-                <Text className="text-slate-700 mb-1">
-                  {selectedGift.description || "No description"}
-                </Text>
-                <Text className="text-slate-500 mb-4">
-                  Location: {selectedGift.location || "Not specified"}
-                </Text>
-
-                <View className="flex-row justify-end mt-1">
-                  <TouchableOpacity
-                    onPress={() => handleDeleteGift(selectedGift.id)}
-                    accessibilityRole="button"
-                    accessibilityLabel="Delete gift"
-                    className="bg-[#7A1E2C] px-5 py-3 rounded-full mr-2"
-                  >
-                    <Text className="text-white font-KronaOne text-xs">
-                      Delete
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => setModalVisible(false)}
-                    className="bg-slate-200 px-5 py-3 rounded-full"
-                  >
-                    <Text className="text-slate-600 font-KronaOne text-xs">
-                      Close
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </>
-            )}
-          </View>
+        <View className="flex-row justify-end mt-1">
+          <TouchableOpacity
+            onPress={() => handleDeleteGift(selectedGift.id)}
+            accessibilityRole="button"
+            accessibilityLabel="Delete gift"
+            className="bg-[#7A1E2C] px-5 py-3 rounded-full mr-2"
+          >
+            <Text className="text-white font-KronaOne text-xs">Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            className="bg-slate-200 px-5 py-3 rounded-full"
+          >
+            <Text className="text-slate-600 font-KronaOne text-xs">
+              Close
+            </Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
+      </ItemDetailModal>
     </View>
   );
 }
