@@ -89,21 +89,20 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="myPresents"
-        options={{
-          title: "My Gifts",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons size={24} name="redeem" color={color} />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
         name="home"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="home-filled" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="myPresents"
+        options={{
+          title: "My Gifts",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons size={24} name="redeem" color={color} />
           ),
         }}
       />
