@@ -169,8 +169,9 @@ export default function Home() {
   return (
     <View className="flex-1 bg-[#FCF6F2]">
       <ScrollView
-        className="flex-1 px-4 pt-4"
-        contentContainerStyle={{ paddingBottom: 120 }}
+        style={{ flex: 1 }}
+        className="px-4 pt-4"
+        contentContainerStyle={{ paddingBottom: 20 }}
       >
         <View className="bg-[#FFF8F4] rounded-3xl px-4 py-4 mb-4 border border-[#EADFD8]">
           <Text className="font-KronaOne text-lg text-slate-900">
@@ -247,16 +248,16 @@ export default function Home() {
         </View>
       </ScrollView>
 
-      <View className="absolute bottom-6 self-center items-center">
+      <View className="px-4 pt-3 pb-4 border-t border-[#EADFD8] bg-[#FCF6F2] items-center">
         <TouchableOpacity
           onPress={() => setShowModal(true)}
-          className="bg-[#B85C38] w-16 h-16 rounded-full items-center justify-center"
+          accessibilityRole="button"
+          accessibilityLabel="Add gift"
+          className="bg-[#B85C38] w-full flex-row py-3 rounded-full items-center justify-center gap-2"
         >
-          <MaterialIcons name="add" size={34} color="white" />
+          <MaterialIcons name="add" size={20} color="white" />
+          <Text className="text-white font-KronaOne text-xs">Add Gift</Text>
         </TouchableOpacity>
-        <Text className="text-slate-700 font-KronaOne mt-2 text-xs">
-          Add Gift
-        </Text>
       </View>
 
       <Modal

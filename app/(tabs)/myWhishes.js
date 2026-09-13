@@ -102,16 +102,19 @@ export default function MyWhishes() {
                   {item.location}
                 </Text>
 
-                <View className="flex-row mt-3 w-full justify-between items-center">
+                <View className="mt-3 w-full gap-2">
                   <TouchableOpacity
                     onPress={() => openContactModal(item)}
                     accessibilityRole="button"
                     accessibilityLabel={`Write to owner about ${item.name}`}
                     accessibilityHint="Opens the contact form for this item"
-                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                    className="bg-[#B85C38] px-3 py-1.5 rounded-full"
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                    className="bg-[#B85C38] w-full py-2 rounded-full items-center"
                   >
-                    <Text className="text-white font-KronaOne text-[11px] text-center">
+                    <Text
+                      className="text-white font-KronaOne text-[11px] text-center"
+                      numberOfLines={1}
+                    >
                       Write to owner
                     </Text>
                   </TouchableOpacity>
@@ -121,8 +124,8 @@ export default function MyWhishes() {
                     accessibilityRole="button"
                     accessibilityLabel={`Delete reservation for ${item.name}`}
                     accessibilityHint="Removes this item from your wishlist"
-                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                    className="bg-[#7A1E2C] px-3 py-1.5 rounded-full"
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                    className="bg-[#7A1E2C] w-full py-2 rounded-full items-center"
                   >
                     <Text className="text-white font-KronaOne text-[11px] text-center">
                       Delete

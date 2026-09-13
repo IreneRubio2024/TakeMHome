@@ -104,11 +104,12 @@ export default function MyPresents() {
 
       <FlatList
         className="px-4"
+        style={{ flex: 1 }}
         data={gifts}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         columnWrapperStyle={{ justifyContent: "space-between", gap: 10 }}
-        contentContainerStyle={{ paddingBottom: 130, paddingTop: 8 }}
+        contentContainerStyle={{ paddingBottom: 16, paddingTop: 8 }}
         renderItem={({ item }) => (
           <View className="w-[48%] bg-[#FFF8F4] rounded-2xl border border-[#EADFD8] overflow-hidden mb-3">
             <Image
@@ -139,16 +140,16 @@ export default function MyPresents() {
         )}
       />
 
-      <View className="absolute bottom-6 self-center items-center">
+      <View className="px-4 pt-3 pb-4 border-t border-[#EADFD8] bg-[#FCF6F2] items-center">
         <TouchableOpacity
           onPress={() => setShowModal(true)}
-          className="bg-[#B85C38] w-16 h-16 rounded-full items-center justify-center"
+          accessibilityRole="button"
+          accessibilityLabel="Add gift"
+          className="bg-[#B85C38] w-full flex-row py-3 rounded-full items-center justify-center gap-2"
         >
-          <MaterialIcons name="add" size={34} color="white" />
+          <MaterialIcons name="add" size={20} color="white" />
+          <Text className="text-white font-KronaOne text-xs">Add Gift</Text>
         </TouchableOpacity>
-        <Text className="text-slate-700 font-KronaOne mt-2 text-xs">
-          Add Gift
-        </Text>
       </View>
 
       <Modal
