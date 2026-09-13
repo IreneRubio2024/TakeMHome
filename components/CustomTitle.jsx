@@ -15,7 +15,7 @@ export default function CustomTitle() {
       </Text>
       <Text
         style={{
-          marginTop: 2,
+          marginTop: 4,
           fontSize: 10,
           color: "#FDD9CC",
           letterSpacing: 0.5,

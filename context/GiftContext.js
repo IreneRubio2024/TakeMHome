@@ -11,26 +11,26 @@ const GIFTS_STORAGE_KEY = "take-me-home:gifts";
 const initialGifts = [
   {
     id: 1,
-    name: "Cykel",
-    description: "Haftig damm cykel, mycket mer att ge. Forst till kvar!",
+    name: "Bike",
+    description: "Cool ladies' bike, still plenty of life left. First come, first served!",
     image: cykel,
   },
   {
     id: 2,
     name: "Minions",
-    description: "tre styck Minios figurer",
+    description: "Three Minions figures",
     image: minions,
   },
   {
     id: 3,
-    name: "Aldre byra",
-    description: "lite gammal men helt fungerande",
+    name: "Old Dresser",
+    description: "A bit old but fully functional",
     image: byro,
   },
   {
     id: 4,
     name: "Piano",
-    description: "soker en ny hem",
+    description: "Looking for a new home",
     image: piano,
   },
 ];
