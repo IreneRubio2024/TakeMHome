@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "test-expo",
-    "slug": "test-expo",
+    "name": "Take Me Home",
+    "slug": "take-me-home",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
