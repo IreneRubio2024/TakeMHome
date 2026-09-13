@@ -173,7 +173,7 @@ export default function Home() {
             >
               <Image
                 source={normalizeImageSource(item.image)}
-                className="w-full aspect-square bg-[#F6ECE6]"
+                className="w-full h-40 bg-[#F6ECE6]"
                 resizeMode="contain"
               />
               <View className="p-3">

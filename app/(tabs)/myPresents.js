@@ -67,7 +67,7 @@ export default function MyPresents() {
           <View className="w-[48%] bg-[#FFF8F4] rounded-2xl border border-[#EADFD8] overflow-hidden mb-3">
             <Image
               source={normalizeImageSource(item.image)}
-              className="w-full aspect-square bg-[#F6ECE6]"
+              className="w-full h-40 bg-[#F6ECE6]"
               resizeMode="contain"
             />
             <View className="p-3">

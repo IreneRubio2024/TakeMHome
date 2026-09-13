@@ -88,7 +88,7 @@ export default function MyWhishes() {
             <View className="w-[49%] rounded-2xl mb-3 bg-[#FFF8F4] border border-[#EADFD8] overflow-hidden">
               <Image
                 source={normalizeImageSource(item.image)}
-                className="w-full aspect-square bg-[#F6ECE6]"
+                className="w-full h-40 bg-[#F6ECE6]"
                 resizeMode="contain"
               />
               <View className="p-4">
