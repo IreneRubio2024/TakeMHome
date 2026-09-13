@@ -9,22 +9,17 @@ import { useEffect, useState } from "react";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { useColorScheme } from "@/components/useColorScheme";
 import { Slot } from "expo-router";
+import Head from "expo-router/head";
 import { GiftProvider } from "../context/GiftContext";
 import "../global.css";
 import { WhishesProvider } from "../context/WhishesContext";
 import { MessagesProvider } from "../context/MessagesContext";
 
 export {
-  // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
 
-// export const unstable_settings = {
-//   // Ensure that reloading on `/modal` keeps a back button present.
-//   initialRouteName: "gluestack",
-// };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -33,7 +28,7 @@ export default function RootLayout() {
   });
 
   const [styleLoaded, setStyleLoaded] = useState(false);
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+  
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -44,13 +39,7 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  // useLayoutEffect(() => {
-  //   setStyleLoaded(true);
-  // }, [styleLoaded]);
 
-  // if (!loaded || !styleLoaded) {
-  //   return null;
-  // }
 
   return <RootLayoutNav />;
 }
@@ -66,6 +55,9 @@ function RootLayoutNav() {
             <ThemeProvider
               value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
             >
+              <Head>
+                <title>Take Me Home</title>
+              </Head>
               <Slot />
             </ThemeProvider>
           </GluestackUIProvider>
