@@ -2,6 +2,9 @@
   "name": "take-me-home",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=24.22.1"
+  },
   "scripts": {
     "start": "expo start",
     "build:web": "expo export -p web",
